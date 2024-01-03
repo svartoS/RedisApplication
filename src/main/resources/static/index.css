@@ -1,0 +1,14 @@
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #4CAF50;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Svarto books</title>
+    <link rel="stylesheet" th:href="@{styles.css}" />
+</head>
+<body>
+<h1>Svarto books</h1>
+<hr>
+<div align="center">
+    <h1>Регистрация пользователя</h1>
+    <form th:action="@{/registration}" method="post" th:object="${user}">
+        <label>Полное имя:</label>
+        <input type="text" name="name" th:field="*{name}" />
+        <label>День рождения (yyyy-mm-dd):</label>
+        <input type="text" name="birthday" th:field="*{birthday}" />
+        <label>E-mail:</label>
+        <input type="email" name="email" th:field="*{email}" />
+        <label>Пароль:</label>
+        <input type="password" name="password" th:field="*{password}" />
+
+        <input type="submit" value="Регистрация"/>
+    </form>
+</div>
+</body>
+</html>

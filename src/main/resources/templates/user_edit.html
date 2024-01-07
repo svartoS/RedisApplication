@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Svarto books</title>
+</head>
+<body>
+<h1>Svarto books</h1><hr>
+<h3 th:text="'Редактирование пользователя ' + ${user.name}">Редактирование пользователя</h3>
+<form action="/admin/user/edit" method="post">
+  <!-- Loop through roles using Thymeleaf -->
+  <div th:each="role : ${roles}">
+    <label>
+      <!-- Here we are setting the checkbox to be checked if the user has the role -->
+      <input type="checkbox" th:name="${role}"
+             th:checked="${#lists.contains(user.roles, role)}" th:value="${role}" />
+      <span th:text="${role}">Role</span>
+    </label>
+  </div>
+  <!-- Hidden fields to pass the user ID and CSRF token -->
+  <input type="hidden" th:value="${user.id}" name="userId">
+  <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

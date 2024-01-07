@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Svarto books</title>
+</head>
+<body>
+<h1>Svarto books</h1>
+<hr>
+<h4>Панель администратора</h4>
+<table border="1">
+    <tr>
+        <th>Email</th>
+        <th>Активность</th>
+        <th>Роли</th>
+        <th>Бан</th>
+        <th>Редактирование</th>
+        <th>Подробная информация</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.email}">Email placeholder</td>
+        <td th:text="${user.active ? 'true' : 'false'}">Active placeholder</td>
+        <td>
+            <ul>
+                <li th:each="role : ${user.roles}" th:text="${role}">Role placeholder</li>
+            </ul>
+        </td>
+        <td>
+            <form th:action="'/admin/user/ban/' + ${user.id}" method="post">
+                <input type="submit" value="Бан">
+            </form>
+        </td>
+        <td>
+            <a th:href="'/admin/user/edit/' + ${user.id}">Редактировние</a>
+        </td>
+        <td>
+            <a th:href="'/user/' + ${user.id}">Подробная информация</a>
+        </td>
+    </tr>
+    <th:block th:if="${#lists.isEmpty(users)}">
+        <tr>
+            <td colspan="7">Пользователей нет</td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

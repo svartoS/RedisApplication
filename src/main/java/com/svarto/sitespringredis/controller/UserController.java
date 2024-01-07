@@ -1,56 +1,57 @@
 package com.svarto.sitespringredis.controller;
 
+import com.svarto.sitespringredis.Product;
 import com.svarto.sitespringredis.User;
-import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.NonNullFields;
+import com.svarto.sitespringredis.services.ProductService;
+import com.svarto.sitespringredis.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
+
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
-    User newUser;
-    @Autowired
-    private RedisTemplate<String, User> redisTemplate;
 
-    @GetMapping("/register")
-    public String showForm(Model model){
+    private final UserService userService;
+    private final ProductService productService;
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/registration")
+    public String registration(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-
-        return "register_form";
+        return "registration";
     }
 
-    @PostMapping(value = "/register_success")
-    public String  submitForm(@RequestBody @ModelAttribute("user") User user){
-        if (user.getEmail() == null) {
-            throw new IllegalArgumentException("Email cannot be null");
+
+    @PostMapping("/registration")
+    public String createUser(@ModelAttribute("user") User user, Model model) {
+        if(!userService.createUser(user)){
+            model.addAttribute("errorMessage", "Пользователь с таким email уже существует анлак");
+            return "redirect:/login";
         }
-        System.out.println("Going to set value of person in redis");
-        redisTemplate.opsForValue().set(user.getEmail(), user);
-        newUser = copyUser(user);
+        return "redirect:/";
+    }
 
+    @GetMapping("/hello")
+    public String securityUrl() {
+        return "hello";
+    }
 
-        return "register_success";
+    @GetMapping("/user/{user}")
+    public String userinfo(@PathVariable("user")User user, Model model) {
+        model.addAttribute("user", productService.getUserById(user.getId()));
+        model.addAttribute("products", userService.getProductByUser_id(user));
+
+        return "user_info";
     }
-    @GetMapping(value = "/register_success")
-    public String getDataFromRedis(@ModelAttribute("user") User user) {
-        System.out.println(newUser.toString());
-        return "index";
-    }
-    public User copyUser(User originalUser) {
-        User newUser = new User();
-        newUser.setEmail(originalUser.getEmail());
-        newUser.setBirthday(originalUser.getBirthday());
-        newUser.setName(originalUser.getName());
-        newUser.setPassword(originalUser.getPassword());
-        return newUser;
-    }
+
 
 }

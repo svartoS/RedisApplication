@@ -1,14 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Svarto's Book</title>
+    <title>Svarto books</title>
     <link rel="stylesheet" th:href="@{index.css}" />
+
 </head>
 <body>
-    <div align ="center">
-        <h1>Магазин книг</h1>
-        <a href="/register">Пройти регистрацию можно здесь</a>
+
+<div align="left">
+    <h1>Магазин книг by svartoS</h1>
+    <hr>
+    <div th:if="${user.email}">
+        <h3>Вы зашли как: <span th:text="${user.name}"></span></h3>
+        <form action="/logout" method="post">
+            <input type="submit" value="Выйти"/>
+        </form>
+        <div th:if="${user.isAdmin()}">
+            <a href="/admin">Панель администратора</a>
+        </div>
     </div>
+
+
+    <form action="/" method="get">
+        Поиск по названию объявления: <input type="text" name="title"><br>
+        <input type="submit" value="Поиск"/>
+    </form>
+    <div th:each="product : ${products}">
+        <p><b th:text="${product.title}"></b>
+            <span th:text="${product.price}"></span> руб.
+            <a th:href="@{/product/__${product.id}__}"> Подробнее...</a> </p>
+    </div>
+
+</div>
+
+<h3 th:if="${user.email}">
+    <form action="/product/create" method="post">
+        Название объявления: <input type="text" name="title"/><br><br>
+        Автор: <input type="text" name="author"/><br><br>
+        Описание объявления: <input type="text" name="description"/><br><br>
+        Цена: <input type="number" name="price"/><br><br>
+        Город: <input type="text" name="city"/><br><br>
+        <input type="submit" value="Добавить товар"/>
+    </form>
+</h3>
+
 </body>
 </html>

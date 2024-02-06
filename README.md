@@ -6,4 +6,5 @@
 ## Установка
 Для установки Redis был использован [Redis for Windows](https://github.com/microsoftarchive/redis)
 
-* Контактная информация: [tg](https://t.me/svartosan)
+## Контактная информация
+* [tg](https://t.me/svartosan)

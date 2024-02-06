@@ -5,4 +5,4 @@
 ## Установка
 Для установки Redis был испо
 ## Ссылки
-* Контактная информация: [Текст ссылки](https://www.example.com) i.apevalin@gmail.com
+* Контактная информация: [tg](https://t.me/svartosan) i.apevalin@gmail.com

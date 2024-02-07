@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-    <meta charset="UTF-8">
-    <title>Svarto books</title>
-    <link rel="stylesheet" th:href="@{/index_info.css}" />
-</head>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<div th:replace="~{template.html :: head-navbar}"></div>
+<div th:replace="~{template.html :: navbar}"></div><hr>
+
 <body>
-<h1>Svarto books</h1>
 <hr>
-<h4>Подробная информация о товаре</h4>
-<b>Название товара: </b><span th:text="${product.title}"></span><br>
-<b>Имя продавца: </b><a th:href="@{/user/__${product.user.id}__}" ><B th:text="${product.user.name}"></B></a><br>
-<b>Цена: </b><span th:text="${product.price}"></span><br>
-<b>Город: </b><span th:text="${product.city}"></span><br>
-<b>Описание товара: </b><span th:text="${product.description}"></span><br>
+<p><h1 style="text-align: center" th:text="${product.title} + ' | ' + ${product.price} + ' ₽'"></h1></p>
+<p style="text-align: center" th:text="${product.description}"></p>
 
 <hr>
-<form  th:action="@{/product/delete/{id}(id=${product.id})}" method="post">
+<p style="text-align: center">
+    <a th:href="@{/user/{id}(id=${authorProduct.id})}">
+        <img th:src="@{/image/avatar.png}" alt="Avatar" width="32" height="32" class="rounded-circle" th:alt="${authorProduct.name}">
+        <span th:text="${authorProduct.name}"></span>
+    </a>
+</p>
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js}"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js}"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 
-    <button type="submit">Удалить объявление</button>
-</form>
 </body>
 </html>

@@ -13,8 +13,6 @@ public class RedisConfig {
     @Bean
     public JedisConnectionFactory getConnectionFactory(){
         JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
-        connectionFactory.setPort(6379);
-        connectionFactory.setDatabase(0);
         return connectionFactory;
     }
     @Bean

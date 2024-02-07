@@ -10,6 +10,7 @@ public class SiteSpringRedisApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiteSpringRedisApplication.class, args);
+		System.out.println("xd");
 	}
 
 }

@@ -1,49 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<head>
-    <meta charset="UTF-8">
-    <title>Svarto books</title>
-    <link rel="stylesheet" th:href="@{index.css}" />
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 
-</head>
+<div th:replace="~{template.html :: head-navbar}"></div>
+<div th:replace="~{template.html :: navbar}"></div><hr>
+
 <body>
 
-<div align="left">
-    <h1>Магазин книг by svartoS</h1>
-    <hr>
-    <div th:if="${user.email}">
-        <h3>Вы зашли как: <span th:text="${user.name}"></span></h3>
-        <form action="/logout" method="post">
-            <input type="submit" value="Выйти"/>
-        </form>
-        <div th:if="${user.isAdmin()}">
-            <a href="/admin">Панель администратора</a>
+<h1 style="text-align: center">Поиск товаров по Самарской области</h1><hr>
+<form method="get" action="/">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="searchCity">Город</label>
+            <select id="searchCity" class="form-control">
+                <option value="">Город не выбран</option>
+                <option value="Самара">Самара</option>
+                <option value="Тольятти">Тольятти</option>
+                <option value="Сызрань">Сызрань</option>
+            </select>
         </div>
+        <div class="form-group col-md-10">
+            <label for="searchWord">Поиск по объявлениям</label>
+            <input type="text" name="searchWord" th:value="${searchWord}" class="form-control" id="searchWord">
+        </div>
+        <button style="width: 100%" type="submit" class="btn btn-dark">Поиск</button>
     </div>
-
-
-    <form action="/" method="get">
-        Поиск по названию объявления: <input type="text" name="title"><br>
-        <input type="submit" value="Поиск"/>
-    </form>
-    <div th:each="product : ${products}">
-        <p><b th:text="${product.title}"></b>
-            <span th:text="${product.price}"></span> руб.
-            <a th:href="@{/product/__${product.id}__}"> Подробнее...</a> </p>
+</form>
+<hr>
+<div class="card-columns" >
+    <div th:each="product : ${products}" th:if="${products}">
+        <a th:href="@{/product/{id}(id=${product.id})}" class="product-link">
+            <div class="card text-white bg-dark my-3 product">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.title}">Title</h5>
+                    <p class="card-text" th:text="${product.price} + ' ₽'">Price</p>
+                </div>
+                <div class="card-footer" th:text="${product.city}">City</div>
+            </div>
+        </a>
     </div>
-
+    <h1 style="text-align: center" th:if="${#lists.isEmpty(products)}">Не найдено</h1>
 </div>
-
-<h3 th:if="${user.email}">
-    <form action="/product/create" method="post">
-        Название объявления: <input type="text" name="title"/><br><br>
-        Автор: <input type="text" name="author"/><br><br>
-        Описание объявления: <input type="text" name="description"/><br><br>
-        Цена: <input type="number" name="price"/><br><br>
-        Город: <input type="text" name="city"/><br><br>
-        <input type="submit" value="Добавить товар"/>
-    </form>
-</h3>
 
 </body>
 </html>

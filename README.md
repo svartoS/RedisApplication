@@ -5,7 +5,11 @@
 ## Используемый стек: Java Core, Spring Boot, Spring Security, Bootstrap, Thymeleaf, Redis,  Maven
 
 ![image](https://github.com/svartoS/RedisApplication.java/assets/58130118/ee43f014-59b1-4d6b-bf97-c8e5cf08f789)
+
 ![image](https://github.com/svartoS/RedisApplication.java/assets/58130118/90efabff-e6fb-4073-8ba3-920cd64a5580)
+
+![image](https://github.com/svartoS/RedisApplication.java/assets/58130118/0904951a-13a0-4a15-aa88-39670a010383)
+
 ![image](https://github.com/svartoS/RedisApplication.java/assets/58130118/cf9fe68d-3b0f-4b9c-ac75-fc035942636d)
 
 
